@@ -1,0 +1,14 @@
+#include "FSMT_RandomChanceSmartObject.h"
+
+bool FSMT_RandomChanceSmartObject::Evaluate(float deltaTime) const
+{
+	if (FMath::FRand() <= _RandomChancePerSecond * deltaTime)
+	{
+		if (auto userComp = _Pedestrian->GetComponentByClass<UPedestrianSmartObjectUserComp>())
+		{
+			return userComp->HasNeabySmartObject(_SmartObjectTag, _Radius);
+		}
+	}
+
+	return false;
+}
